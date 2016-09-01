@@ -1,5 +1,4 @@
-# cohort-analysis
-cohort analysis on customer retention rate of a product company
+
 
 <h1>Cohort analysis </h1>
 
