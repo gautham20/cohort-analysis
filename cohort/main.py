@@ -1,5 +1,8 @@
 ## bokeh serve --show cohort
-
+## crm 1
+## ms 2
+##invoice 3
+##project 4
 from os.path import dirname, join
 
 import bokeh.plotting as bplt
@@ -17,10 +20,10 @@ from pandas import Series,DataFrame
 from datetime import *
 from dateutil import relativedelta
 
-cohorts_crm     = pd.read_pickle(join(dirname(__file__),'data', 'cohorts_crm.pkl'))
-cohorts_ms      = pd.read_pickle(join(dirname(__file__),'data', 'cohorts_ms.pkl'))
-cohorts_invoice = pd.read_pickle(join(dirname(__file__),'data', 'cohorts_invoice.pkl'))
-cohorts_project = pd.read_pickle(join(dirname(__file__),'data', 'cohorts_project.pkl'))
+cohorts_1     = pd.read_pickle(join(dirname(__file__),'data', 'cohorts_1.pkl'))
+cohorts_2    = pd.read_pickle(join(dirname(__file__),'data', 'cohorts_2.pkl'))
+cohorts_3 = pd.read_pickle(join(dirname(__file__),'data', 'cohorts_3.pkl'))
+cohorts_4 = pd.read_pickle(join(dirname(__file__),'data', 'cohorts_4.pkl'))
 
 def add_pname(df,product):
 	df['pname'] = product
@@ -28,12 +31,12 @@ def add_pname(df,product):
 	df = df.swaplevel(0,1)
 	return df
 
-cohorts_crm     = add_pname(cohorts_crm.copy(),'CRM')
-cohorts_ms      = add_pname(cohorts_ms.copy(),'Mail Suite')
-cohorts_invoice = add_pname(cohorts_invoice.copy(),'Invoice')
-cohorts_project = add_pname(cohorts_project.copy(),'Projects')
+cohorts_1     = add_pname(cohorts_1.copy(),'product 1')
+cohorts_2      = add_pname(cohorts_2.copy(),'product 2')
+cohorts_3 = add_pname(cohorts_3.copy(),'product 3')
+cohorts_4 = add_pname(cohorts_4.copy(),'product 4')
 
-cohort_dfs = [cohorts_crm,cohorts_ms,cohorts_invoice,cohorts_project]
+cohort_dfs = [cohorts_1,cohorts_2,cohorts_3,cohorts_4]
 
 cohorts = pd.concat(cohort_dfs)
 
@@ -52,15 +55,15 @@ b_cohorts['colors'] = b_cohorts['colors'].apply(lambda x:('#%02x%02x%02x' % x).u
 
 mons = list(b_cohorts['epoch'].unique())
 
-products = ['CRM','Invoice','Mail Suite','Projects']
+products = ['product 1','product 2','product 3','product 4']
 
 counts = Slider(title="months since initial order", value=36, start=1, end=36, step=1)
 start_mon = Select(title="start month", value='2012-01-01',options=list(mons))
 end_mon = Select(title="end month", value='2014-12-01',options=list(mons))
-product = Select(title='Product',value='CRM',options=list(products))
+product = Select(title='Product',value='product 1',options=list(products))
 
 df_now = b_cohorts.copy()
-source = ColumnDataSource(data=b_cohorts[b_cohorts['pname']=='CRM'])
+source = ColumnDataSource(data=b_cohorts[b_cohorts['pname']=='product 1'])
 
 
 
